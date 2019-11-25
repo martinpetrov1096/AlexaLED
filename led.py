@@ -15,7 +15,7 @@ def led(color, status):
 if __name__ == '__main__':
   try:
     GPIO.setmode(GPIO.BCM)
-    pins = {'red':9, 'yellow':10, 'green':11}
+    pins = {'red':0, 'yellow':1, 'green':2}
     for pin in pins.values(): 
       GPIO.setup(pin, GPIO.OUT)
     app.run(debug=True)

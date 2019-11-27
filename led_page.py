@@ -1,9 +1,16 @@
 from flask import Flask, request
+from gpiozero import LED
 app = Flask(__name__)
 
-@app.route("/query")
+@app.route("/on")
 def test():
-    return "working!"
+    led = LED(27)
+    led.on()
+    return "On!"
+
+@app.route("/off")
+def test():
+    return "On!"
 
 @app.route("/")
 def hello():

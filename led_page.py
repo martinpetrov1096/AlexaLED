@@ -12,7 +12,7 @@ def test():
 @app.route("/off")
 def test2():
     led.off()
-    return "off!"
+    return render_template("off.html")
 
 @app.route("/status")
 def status():

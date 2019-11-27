@@ -9,7 +9,7 @@ def test():
     return "On!"
 
 @app.route("/off")
-def test():
+def test2():
     return "On!"
 
 @app.route("/")

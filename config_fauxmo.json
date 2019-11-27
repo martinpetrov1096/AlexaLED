@@ -11,7 +11,9 @@
                     "off_cmd": "http://192.168.1.14:8080/off",
                     "method": "GET",
                     "name": "Tower-LED",
-                    "state_cmd": "http://192.168.1.14:8080/status"
+                    "state_cmd": "http://192.168.1.14:8080/status",
+                    "state_response_off": "off",
+                    "state_rasponse_on": "on"
                 }
             ]
         }

@@ -12,9 +12,17 @@ def test2():
     led.off()
     return "On!"
 
+@app.route("/status")
+def status():
+    if(led.is_lit):
+        return "on"
+    else:
+        return "off"
+
 @app.route("/")
 def hello():
     return "Hello World!"
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)

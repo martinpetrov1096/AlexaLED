@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from gpiozero import LED
 app = Flask(__name__)
 led = LED(27)
@@ -10,7 +10,7 @@ def test():
 @app.route("/off")
 def test2():
     led.off()
-    return "On!"
+    return render_template("on.html")
 
 @app.route("/status")
 def status():

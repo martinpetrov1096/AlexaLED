@@ -17,9 +17,9 @@ def test2():
 @app.route("/status")
 def status():
     if(led.is_lit):
-        return "on"
+        return render_template("on.html")
     else:
-        return "off"
+        return render_template("off.html")
 
 @app.route("/")
 def hello():

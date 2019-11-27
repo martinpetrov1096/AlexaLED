@@ -2,15 +2,17 @@ from flask import Flask, request, render_template
 from gpiozero import LED
 app = Flask(__name__)
 led = LED(27)
+
+
 @app.route("/on")
 def test():
     led.on()
-    return "On!"
+    return render_template("on.html")
 
 @app.route("/off")
 def test2():
     led.off()
-    return render_template("on.html")
+    return "off!"
 
 @app.route("/status")
 def status():

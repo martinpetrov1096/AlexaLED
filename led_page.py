@@ -4,12 +4,12 @@ app = Flask(__name__)
 led = LED(27)
 @app.route("/on")
 def test():
-
     led.on()
     return "On!"
 
 @app.route("/off")
 def test2():
+    led.off()
     return "On!"
 
 @app.route("/")

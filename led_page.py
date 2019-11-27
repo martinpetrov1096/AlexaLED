@@ -1,10 +1,10 @@
 from flask import Flask, request
 from gpiozero import LED
 app = Flask(__name__)
-
+led = LED(27)
 @app.route("/on")
 def test():
-    led = LED(27)
+
     led.on()
     return "On!"
 

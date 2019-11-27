@@ -1,0 +1,46 @@
+{
+    "FAUXMO": {
+        "ip_address": "auto"
+    },
+    "PLUGINS": {
+        "SimpleHTTPPlugin": {
+            "DEVICES": [
+                {
+                    "port": 5000,
+                    "on_cmd": "http://192.168.1.14/on",
+                    "off_cmd": "http://192.168.1.14/off",
+                    "method": "GET",
+                    "name": "Tower-LED"
+                },
+                {
+                    "port": 12341,
+                    "on_cmd": "http://localhost:54321/devices/garage%20light",
+                    "off_cmd": "http://localhost:54321/devices/garage%20light",
+                    "on_data": {"isOn": 1},
+                    "off_data": {"isOn": 0},
+                    "user": "this",
+                    "password": "that",
+                    "method": "PUT",
+                    "name": "fake Indigo switch"
+                },
+                {
+                    "name": "fake home assistant switch via SimpleHTTPPlugin",
+                    "port": 12342,
+                    "headers": {
+                        "Authorization": "Bearer YOURTOKENHERE",
+                        "Content-Type": "application/json"
+                    },
+                    "on_cmd": "http://192.168.0.5:8123/api/services/switch/turn_on",
+                    "off_cmd": "http://192.168.0.5:8123/api/services/switch/turn_off",
+                    "method": "POST",
+                    "on_data": "{\"entity_id\": \"switch.fake_hass_switch\"}",
+                    "off_data": "{\"entity_id\": \"switch.fake_hass_switch\"}",
+                    "state_method": "GET",
+                    "state_cmd": "http://192.168.0.5:8123/api/states/switch.fake_hass_switch",
+                    "state_response_on": "\"state\": \"on\"",
+                    "state_response_off": "\"state\": \"off\""
+                }
+            ]
+        }
+    }
+}

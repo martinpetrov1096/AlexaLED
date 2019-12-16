@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tower-LED</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type=text/javascript>
+        //Code for changing brightness of LED's
+        $(function(){
+            var form = $('form');
+            $('#changeBrightness').on('change', function(){
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                }).done(function(res){
+                    //do something with the response from the server
+                });
+            });
+        });
+    </script>
+
+  </head>
+  <body>
+    <div class='container'>
+        <h3>Toggle Lights</h3>
+            <!--<form>
+                <a href=# id=ToggleLights><button class='btn btn-default'>Test</button></a>
+            </form> -->
+    </div>
+
+    <form method="POST" action="{{url_for('setBrightness')}}">
+        <p>Brightness:</p>
+        <input type="range" min="0" max="100" value={{brightness}} class="slider" 
+            id="changeBrightness" name="myBrightness">
+    </form>
+
+  </body>
+</html>

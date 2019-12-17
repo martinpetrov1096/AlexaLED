@@ -28,6 +28,15 @@ class rgbController:
         self.gLED.off()
         self.bLED.off()
 
+    def is_lit(self):
+        if self.rLED.is_lit and self.gLED.is_lit and self.bLED.is_lit:
+            return True
+        else:
+            return False
+
+    def get_rgba(self):
+        return self.rgba
+
     #Sets the color for 
     def set_rgba(self,rgba):
         self.rgba = rgba

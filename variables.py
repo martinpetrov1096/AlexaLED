@@ -4,6 +4,7 @@ from rgb import *
 variables = {}
 variables['currBrightness'] = 1
 
+'''
 blueLED= PWMLED(27)
 
 
@@ -17,8 +18,9 @@ def on():
 def off():
     variables['currBrightness'] = blueLED.value
     blueLED.off()
-
+'''
 
 
 #NEW CODE
 
+variables['controller'] = rgbController([17,18,27], rgba(1,1,1,1))

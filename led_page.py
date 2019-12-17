@@ -5,68 +5,49 @@ from variables import *
 app = Flask(__name__)
 
 
-#ALEXA GET REQUESTS
-@app.route("/on")
-def alexaOn():
-    on()
-    return render_template("on.html")
-
-@app.route("/off")
-def alexaOff():
-    off()
-    return render_template("off.html")
-
-@app.route("/status")
-def status():
-    if(blueLED.is_lit):
-        return render_template("on.html")
-    else:
-        return render_template("off.html")
-
-
-
-#MAIN WEBPAGE
+#MAIN WEBPAGE. Returns main.html with the values for the current led state
 @app.route("/")
-def hello():
-    if(blueLED.is_lit):
-        return render_template("main.html", brightness=variables['currBrightness'] * 100)
-    else:
-        return render_template("main.html", brightness=0)
+def main():
+    currColor = variables['controller'].get_rgba()
+    return render_template("main.html", currAlpha=currColor.alpha * 100,
+                                        currRed=currColor.red * 100,
+                                        currGreen=currColor.green * 100,
+                                        currBlue=currColor.blue * 100
+    )
 
-   
-
-
-#background processses that happen without any refreshing
-
-#Change brightness
-@app.route('/set_brightness',methods=['GET', 'POST'])
-def setBrightness():
-    if request.method == 'POST':
-        updateBrightness(float(request.form['myBrightness']) / 100)
-
-    #Return nothing. 204 is the HTTP empty response
-    return ('', 204)
-
-
-
-#Toggle Power
-#@app.route('/toggle_power', methods=['POST'])
-#def toggle_power():
-
-
-
-#NEW CODE
 
 @app.route('/setColor', methods=['POST'])
 def setColor():
-    #if request.method == 'POST':
-        
+    if request.method == 'POST':
+         color = rgba(
+            float(request.form['myRed']) / 100,
+            float(request.form['myGreen']) / 100,
+            float(request.form['myBlue']) / 100,
+            float(request.form['myAlpha']) / 100,
+         )   
+         variables['controller'].set_rgba(color)
 
-
-
-
-    print("hello")
     return ('', 204)
+
+
+
+#ALEXA SITES
+@app.route("/on")
+def alexaOn():
+    variables['controller'].on()
+    return "on"
+
+@app.route("/off")
+def alexaOff():
+    variables['controller'].off()
+    return "off"
+
+@app.route("/status")
+def status():
+    if(variables['controller'].is_lit()):
+        return "ON"
+    else:
+        return "OFF"
 
 
 

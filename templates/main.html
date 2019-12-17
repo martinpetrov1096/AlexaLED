@@ -9,7 +9,7 @@
     <script type=text/javascript>
         //Code for changing brightness of LED's
         $(function(){
-            var form = $('form');
+            /*var form = $('form');
             $('#changeBrightness').on('change', function(){
                 $.ajax({
                     type: "POST",
@@ -18,24 +18,56 @@
                 }).done(function(res){
                     //do something with the response from the server
                 });
+            });*/
+
+            var form = $('.colorForm');
+            $('.colorForm :input').on('change', function(){
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                }).done(function(res){
+                    //Do nothing
+                });
             });
+
+
         });
+
+
+
+
+
+
     </script>
 
   </head>
   <body>
-    <div class='container'>
-        <h3>Toggle Lights</h3>
-            <!--<form>
-                <a href=# id=ToggleLights><button class='btn btn-default'>Test</button></a>
-            </form> -->
-    </div>
 
     <form method="POST" action="{{url_for('setBrightness')}}">
         <p>Brightness:</p>
-        <input type="range" min="0" max="100" value={{brightness}} class="slider" 
+        <input type="range" min="0" max="100" value={{brightness}} 
             id="changeBrightness" name="myBrightness">
+
+        
+        
     </form>
+
+    <form method="POST" action="{{url_for('setColor')}}" class="colorForm">
+        <h2>Brightness:</h2>
+        <input type="range" min="0" max="100" value={{currAlpha}} id="alpha" name="myAlpha">
+        
+        <h2>Red:</h2>
+        <input type="range" min="0" max="100" value={{currRed}} id="red" name="myRed">
+
+        <h2>Green:</h2>
+        <input type="range" min="0" max="100" value={{currGreen}} id="green" name="myGreen">
+
+        <h2>Blue:</h2>
+        <input type="range" min="0" max="100" value={{currBlue}} id="blue" name="myBlue">
+        
+    </form>
+
 
   </body>
 </html>

@@ -39,7 +39,7 @@ class rgbController:
         self.gLED.value = self.rgba.green * self.rgba.alpha
         self.bLED.value = self.rgba.blue * self.rgba.alpha
 
-"""
+
 def main():
     rgbStrip = rgbController([17,18,27], rgba(1,0,0,1))
 
@@ -53,4 +53,3 @@ def main():
     
 if __name__== "__main__":
     main()
-""" 

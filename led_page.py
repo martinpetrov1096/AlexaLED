@@ -1,35 +1,37 @@
-from flask import Flask, request, render_template, json
-#from gpiozero import LED
+from flask import Flask, request, render_template, json, g
+from gpiozero import PWMLED
 app = Flask(__name__)
-#led = LED(27)
-currBrightness = 0 #TODO: set to current led brightness
-status = 0
+led = PWMLED(27)
 
+#Global Variables
+variables = {}
+variables['currBrightness'] = 1
+
+
+#ALEXA GET REQUESTS
 @app.route("/on")
-def test():
-#    led.on()
+def alexaOn():
+    led.value = variables['currBrightness']
     return render_template("on.html")
 
 @app.route("/off")
-def test2():
-#    led.off()
+def alexaOff():
+    led.off()
     return render_template("off.html")
 
 @app.route("/status")
 def status():
-#    if(led.is_lit):
-#        return render_template("on.html")
-#    else:
-    return render_template("off.html")
+    if(led.is_lit):
+        return render_template("on.html")
+    else:
+        return render_template("off.html")
 
+
+
+#MAIN WEBPAGE
 @app.route("/")
 def hello():
-    print(currBrightness)
-    return render_template("main.html", brightness=currBrightness)
-
-
-
-
+    return render_template("main.html", brightness=led.value * 100)
 
 #background processses that happen without any refreshing
 
@@ -44,14 +46,12 @@ def hello():
 @app.route('/set_brightness',methods=['GET', 'POST'])
 def setBrightness():
     if request.method == 'POST':
-        currBrightness = int(request.form['myBrightness'])
-    
-    print(currBrightness) #TODO: set LED to new brightness
+        variables['currBrightness'] = float(request.form['myBrightness']) / 100
+        led.value = variables['currBrightness']
+    print(led.value) #TODO: set LED to new brightness
 
-    #Returns variable to update page with current brightness
-    return json.jsonify({
-        'newBrightness': currBrightness
-    })
+    #Return nothing
+    return ''
 
 
 if __name__ == "__main__":

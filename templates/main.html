@@ -7,19 +7,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script type=text/javascript>
-        //Code for changing brightness of LED's
         $(function(){
-            /*var form = $('form');
-            $('#changeBrightness').on('change', function(){
-                $.ajax({
-                    type: "POST",
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                }).done(function(res){
-                    //do something with the response from the server
-                });
-            });*/
-
+            //Code for changing rgba values of the led strip
             var form = $('.colorForm');
             $('.colorForm :input').on('change', function(){
                 $.ajax({
@@ -30,15 +19,7 @@
                     //Do nothing
                 });
             });
-
-
         });
-
-
-
-
-
-
     </script>
 
   </head>
@@ -46,6 +27,10 @@
 
 
     <form method="POST" action="{{url_for('setColor')}}" class="colorForm">
+
+        <h2>Power</h2>
+        <input type="checkbox" value={{currPower}} {{ 'checked="checked"' if currPower else "" }} id="power" name="myPower" >
+    
         <h2>Brightness:</h2>
         <input type="range" min="0" max="100" value={{currAlpha}} id="alpha" name="myAlpha">
         

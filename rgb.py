@@ -29,7 +29,7 @@ class rgbController:
         self.bLED.off()
 
     def is_lit(self):
-        if self.rLED.is_lit and self.gLED.is_lit and self.bLED.is_lit:
+        if self.rLED.is_lit or self.gLED.is_lit or self.bLED.is_lit:
             return True
         else:
             return False
